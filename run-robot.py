@@ -37,10 +37,8 @@ def draw_init() -> None:
 def draw_robot(game_robot: Robot) -> None:
     clear_screen()
     game_robot.draw()
-    # if game_robot.is_whole():
-    #     sleep(1)
-    #     clear_screen()
-    #     game_robot.draw_whole()
+    if game_robot.is_whole():
+        print("Congratulations! You have activated the gamification robot! Type 'critique' to see the critique.\n")
 
 
 def main():
@@ -52,6 +50,9 @@ def main():
     while True:
         command = input("> ").strip().lower()
         if command == 'q':
+            if game_robot.is_whole():
+                clear_screen()
+                game_robot.wave_goodbye()
             break
         if command == 'help':
             print("Hello! This is a Gamification Robot!")
@@ -61,6 +62,11 @@ def main():
         elif game_robot.is_part(command):
             clear_screen()
             game_robot.check_part(command)
+            input()
+            draw_robot(game_robot)
+        elif game_robot.is_whole() and command == 'critique':
+            clear_screen()
+            game_robot.print_critique()
             input()
             draw_robot(game_robot)
         else:
